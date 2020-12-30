@@ -1,0 +1,42 @@
+<?php
+$CONFIG = array (
+  'instanceid' => '{{ nextcloud_instanceid }}',
+  'passwordsalt' => '{{ nextcloud_passwordsalt }}',
+  'secret' => '{{ nextcloud_secret }}',
+  'trusted_domains' =>
+  array (
+    0 => '{{ nextcloud_domain }}',
+  ),
+  'datadirectory' => '{{ nextcloud_datadirectory }}',
+  'overwrite.cli.url' => 'http://localhost',
+  'config_is_read_only' => true,
+  'dbtype' => 'mysql',
+  'version' => '{{ nextcloud_long_version.stdout }}',
+  'dbname' => '{{ nextcloud_dbname }}',
+  'dbhost' => '{{ nextcloud_dbhost }}',
+  'dbport' => '',
+  'dbtableprefix' => 'oc_',
+  'dbuser' => '{{ nextcloud_dbuser }}',
+  'dbpassword' => '{{ nextcloud_dbpassword }}',
+  'mysql.utf8mb4' => true,
+  'installed' => true,
+  'mail_from_address' => 'root',
+  'mail_smtpmode' => 'sendmail',
+  'mail_smtpauthtype' => 'PLAIN',
+  'mail_domain' => '{{ nextcloud_domain }}',
+  'maintenance' => false,
+  'theme' => '',
+  'loglevel' => 2,
+  'memcache.local' => '\\OC\\Memcache\\Redis',
+  'memcache.distributed' => '\\OC\\Memcache\\Redis',
+  'memcache.locking' => '\\OC\\Memcache\\Redis',
+  'redis' =>
+  array (
+    'host' => 'localhost',
+    'port' => 6379,
+  ),
+  'app_install_overwrite' =>
+  array (
+    0 => 'calendar',
+  ),
+);

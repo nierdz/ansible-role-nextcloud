@@ -1,0 +1,43 @@
+---
+# General
+nextcloud_version: "20.0.7"
+nextcloud_domain: ""
+nextcloud_php_user: "{{ php_fpm_pool_user | default('www-data') }}"
+nextcloud_php_version: "{{ php_default_version_debian | default('7.4') }}"
+nextcloud_keep_releases: "60d"
+nextcloud_admin_user: ""
+nextcloud_admin_password: ""
+
+# To generate config.php
+nextcloud_instanceid: ""
+nextcloud_passwordsalt: ""
+nextcloud_secret: ""
+nextcloud_dbhost: "localhost"
+nextcloud_dbname: "nextcloud"
+nextcloud_dbuser: "nextcloud"
+nextcloud_dbpassword: ""
+
+# Paths
+nextcloud_deploy_to: "/var/www/{{ nextcloud_domain }}"
+nextcloud_datadirectory: "{{ nextcloud_deploy_to }}/data"
+
+# Packages
+nextcloud_php_packages:
+  - php-pear
+  - php{{ nextcloud_php_version }}-bcmath
+  - php{{ nextcloud_php_version }}-bz2
+  - php{{ nextcloud_php_version }}-curl
+  - php{{ nextcloud_php_version }}-gd
+  - php{{ nextcloud_php_version }}-gmp
+  - php{{ nextcloud_php_version }}-imagick
+  - php{{ nextcloud_php_version }}-intl
+  - php{{ nextcloud_php_version }}-json
+  - php{{ nextcloud_php_version }}-mbstring
+  - php{{ nextcloud_php_version }}-mysql
+  - php{{ nextcloud_php_version }}-redis
+  - php{{ nextcloud_php_version }}-xml
+  - php{{ nextcloud_php_version }}-zip
+nextcloud_packages:
+  - redis-server
+  - redis-tools
+  - unzip

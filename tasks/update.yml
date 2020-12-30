@@ -1,0 +1,117 @@
+---
+- name: Check if nextcloud {{ nextcloud_version_path }} exists
+  stat:
+    path: "{{ nextcloud_version_path }}"
+  register: nextcloud_release
+
+- name: Create {{ nextcloud_version_path }}
+  file:
+    state: directory
+    path: "{{ nextcloud_version_path }}"
+    owner: "{{ nextcloud_php_user }}"
+    group: "{{ nextcloud_php_user }}"
+    mode: 0755
+  when: not nextcloud_release.stat.exists
+
+- name: Download nextcloud archive
+  unarchive:
+    remote_src: true
+    src: https://download.nextcloud.com/server/releases/nextcloud-{{ nextcloud_version }}.zip
+    dest: "{{ nextcloud_version_path }}"
+    owner: "{{ nextcloud_php_user }}"
+    group: "{{ nextcloud_php_user }}"
+  when: not nextcloud_release.stat.exists
+
+# Do not use occ status here cause it relies on a proper config.php
+- name: Get long nextcloud version
+  become: true
+  become_user: "{{ nextcloud_php_user }}"
+  shell: |
+    set -o pipefail
+    sed -rn "s/.*Version = array\((.*)\);/\1/p" "{{ nextcloud_version_path }}/nextcloud/version.php" |
+    sed "s/,/./g"
+  args:
+    executable: /bin/bash
+  register: nextcloud_long_version
+  changed_when: false
+
+# Do not use occ status here cause it relies on a proper config.php
+- name: Check if nextcloud is installed
+  mysql_query:
+    login_db: "{{ nextcloud_dbname }}"
+    login_host: "{{ nextcloud_dbhost }}"
+    login_user: "{{ nextcloud_dbuser }}"
+    login_password: "{{ nextcloud_dbpassword }}"
+    query: show tables like 'oc_users'
+  register: nextcloud_is_installed
+  changed_when: false
+
+- name: Check actual symlink
+  stat:
+    path: "{{ nextcloud_current_path }}"
+  register: nextcloud_symlink
+  failed_when: false
+  changed_when: false
+
+- name: Stop php-fpm service
+  service:
+    name: php{{ nextcloud_php_version }}-fpm
+    state: stopped
+  when: nextcloud_symlink.stat.islnk is not defined or
+        nextcloud_symlink.stat.lnk_target != nextcloud_version_path
+
+- name: Update symlink
+  file:
+    state: link
+    path: "{{ nextcloud_current_path }}"
+    src: "{{ nextcloud_version_path }}"
+  register: nextcloud_symlink_updated
+  when: nextcloud_symlink.stat.islnk is not defined or
+        nextcloud_symlink.stat.lnk_target != nextcloud_version_path
+
+- name: Install nextcloud
+  become: true
+  become_user: "{{ nextcloud_php_user }}"
+  command: >
+    /usr/bin/php occ maintenance:install
+      --database "mysql"
+      --database-name "{{ nextcloud_dbname }}"
+      --database-host "{{ nextcloud_dbhost }}"
+      --database-user "{{ nextcloud_dbuser }}"
+      --database-pass "{{ nextcloud_dbpassword }}"
+      --admin-user "{{ nextcloud_admin_user }}"
+      --admin-pass "{{ nextcloud_admin_password }}"
+      --data-dir "{{ nextcloud_datadirectory }}"
+  args:
+    chdir: "{{ nextcloud_current_path }}/nextcloud"
+  when: nextcloud_is_installed.rowcount == [0]
+
+- name: Run occ upgrade
+  become: true
+  become_user: "{{ nextcloud_php_user }}"
+  command: /usr/bin/php occ upgrade
+  args:
+    chdir: "{{ nextcloud_current_path }}/nextcloud"
+  when: nextcloud_symlink.stat.islnk is not defined or
+        nextcloud_symlink.stat.lnk_target != nextcloud_version_path
+
+- name: Create {{ nextcloud_shared_path }}/config.php
+  template:
+    src: config.php.j2
+    dest: "{{ nextcloud_shared_path }}/config.php"
+    owner: "{{ nextcloud_php_user }}"
+    group: "{{ nextcloud_php_user }}"
+    mode: 0400
+  register: nextcloud_config_update
+
+- name: Create symlink to config.php
+  file:
+    state: link
+    path: "{{ nextcloud_current_path }}/nextcloud/config/config.php"
+    src: "{{ nextcloud_shared_path }}/config.php"
+    force: true
+
+- name: Start php-fpm service
+  service:
+    name: php{{ nextcloud_php_version }}-fpm
+    state: started
