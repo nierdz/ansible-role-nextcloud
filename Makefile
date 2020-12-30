@@ -20,7 +20,7 @@ install: ## Install pip dependencies
 	)
 
 pre-commit: ## Run pre-commit tests
-	$(info --> Run pre-commit)
+	$(info --> Run pre-commit tests)
 	@( \
 		source $(VIRTUALENV_DIR)/bin/activate; \
 		pre-commit run --all-files; \
