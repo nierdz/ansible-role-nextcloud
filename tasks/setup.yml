@@ -1,0 +1,40 @@
+---
+- name: Ensure deployment base path exists
+  file:
+    state: directory
+    path: "{{ nextcloud_deploy_to }}"
+    owner: "{{ nextcloud_php_user }}"
+    group: "{{ nextcloud_php_user }}"
+    mode: 0755
+
+- name: Ensure releases folder exists
+  file:
+    state: directory
+    path: "{{ nextcloud_releases_path }}"
+    owner: "{{ nextcloud_php_user }}"
+    group: "{{ nextcloud_php_user }}"
+    mode: 0755
+
+- name: Ensure shared folder exists
+  file:
+    state: directory
+    path: "{{ nextcloud_shared_path }}"
+    owner: "{{ nextcloud_php_user }}"
+    group: "{{ nextcloud_php_user }}"
+    mode: 0755
+
+- name: Install additional php modules
+  apt:
+    name: "{{ nextcloud_php_packages }}"
+    state: present
+
+- name: Install packages
+  apt:
+    name: "{{ nextcloud_packages }}"
+    state: present
+
+- name: Ensure redis is enabled and started
+  service:
+    name: redis
+    enabled: true
+    state: started

@@ -1,0 +1,5 @@
+---
+nextcloud_releases_path: "{{ nextcloud_deploy_to }}/releases"
+nextcloud_version_path: "{{ nextcloud_releases_path }}/{{ nextcloud_version }}"
+nextcloud_shared_path: "{{ nextcloud_deploy_to }}/shared"
+nextcloud_current_path: "{{ nextcloud_deploy_to }}/current"

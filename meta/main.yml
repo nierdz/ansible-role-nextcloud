@@ -1,0 +1,19 @@
+galaxy_info:
+  role_name: nextcloud
+  author: nierdz
+  description: Ansible role to install nextcloud
+  license: GPL-3.0-only
+  min_ansible_version: 2.1
+  platforms:
+  - name: Debian
+    versions:
+    - buster
+
+  galaxy_tags:
+    - nextcloud
+    - owncloud
+    - php
+    - nginx
+    - mysql
+
+dependencies: []

@@ -1,0 +1,37 @@
+---
+name: CI
+
+on: push
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: install dependencies
+        run: |
+          python -m pip install --upgrade pip virtualenv
+          make install
+      - name: run pre-commit checks
+        run: make pre-commit
+
+#  molecule:
+#    runs-on: ubuntu-20.04
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: set up Python 3.8
+#        uses: actions/setup-python@v1
+#        with:
+#          python-version: 3.8
+#      - name: install dependencies
+#        run: |
+#          python -m pip install --upgrade pip virtualenv
+#          make install
+#          sudo wget -O /usr/local/bin/mkcert https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
+#          sudo chmod +x /usr/local/bin/mkcert
+#      - name: run molecule test
+#        run: sudo make molecule-test

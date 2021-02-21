@@ -1,0 +1,19 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: podman
+platforms:
+  - name: instance
+    image: "docker.io/nierdz/debian10-molecule:latest"
+    command: "/lib/systemd/systemd"
+    privileged: true
+    pre_build_image: true
+    published_ports:
+      - 0.0.0.0:8080:80/tcp
+      - 0.0.0.0:4343:443/tcp
+lint: ansible-lint -x 602
+provisioner:
+  name: ansible
+verifier:
+  name: testinfra

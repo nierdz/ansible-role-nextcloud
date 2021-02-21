@@ -1,0 +1,31 @@
+---
+- name: Import check tasks
+  import_tasks: checks.yml
+
+- name: Import setup tasks
+  import_tasks: setup.yml
+
+- name: Import update tasks
+  import_tasks: update.yml
+
+- name: Find old releases
+  find:
+    paths: "{{ nextcloud_releases_path }}"
+    age: "{{ nextcloud_keep_releases }}"
+    file_type: directory
+    recurse: no
+  register: old_releases
+
+- name: Register current release
+  find:
+    paths: "{{ nextcloud_releases_path }}"
+    file_type: directory
+    recurse: no
+    patterns: "{{ nextcloud_version }}"
+  register: current_release
+
+- name: Delete old releases
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ old_releases.files | difference(current_release.files) }}"
