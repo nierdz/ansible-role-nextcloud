@@ -39,7 +39,7 @@ For now, this role only supports **MySQL** as backend. It uses **redis** with de
  - [geerlingguy/php](https://galaxy.ansible.com/geerlingguy/php)
  - [geerlingguy/nginx](https://galaxy.ansible.com/geerlingguy/nginx)
 
-Why particulary those roles ? Because they're pretty well maintained and some variables from theses roles are used in this one but you can still use another roles.
+Why particulary those roles ? Because they're pretty well maintained and some variables from theses roles are used in this one but you can still use other roles.
 
 In production, you will also need a TLS certificate which can be obtained using [acme.sh](https://github.com/acmesh-official/acme.sh). This part is covered in example playbook.
 
