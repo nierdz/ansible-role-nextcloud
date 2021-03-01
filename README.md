@@ -1,4 +1,7 @@
-[![CI Status](https://github.com/nierdz/ansible-role-netxcloud/workflows/CI/badge.svg?branch=master)](https://github.com/nierdz/ansible-role-nextcloud/actions?query=workflow%3ACI)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/nierdz/ansible-role-nextcloud/CI)](https://github.com/nierdz/ansible-role-nextcloud/actions/workflows/ci.yml)
+[![Ansible Role](https://img.shields.io/ansible/role/53258)](https://galaxy.ansible.com/nierdz/nextcloud)
+[![Ansible Quality Score](https://img.shields.io/ansible/quality/53258)](https://galaxy.ansible.com/nierdz/nextcloud)
+[![Ansible Role](https://img.shields.io/ansible/role/d/53258)](https://galaxy.ansible.com/nierdz/nextcloud)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # Nextcloud
@@ -10,6 +13,8 @@ This **ansible** role install [nextcloud](https://nextcloud.com/) the capistrano
 └── nextcloud.local
     ├── current -> /var/www/nextcloud.local/releases/20.0.7
     │   └── nextcloud
+    │       └── config
+    │          └── config.php -> /var/www/shared/config.php
     ├── data
     │   ├── admin
     │   ├── appdata_somerandomshit
@@ -34,7 +39,7 @@ For now, this role only supports **MySQL** as backend. It uses **redis** with de
  - [geerlingguy/php](https://galaxy.ansible.com/geerlingguy/php)
  - [geerlingguy/nginx](https://galaxy.ansible.com/geerlingguy/nginx)
 
-Why particulary those roles ? Because they're pretty well maintained and some variables from theses roles are used in this one but you can still use another roles.
+Why particulary those roles ? Because they're pretty well maintained and some variables from theses roles are used in this one but you can still use other roles.
 
 In production, you will also need a TLS certificate which can be obtained using [acme.sh](https://github.com/acmesh-official/acme.sh). This part is covered in example playbook.
 
@@ -42,7 +47,7 @@ In production, you will also need a TLS certificate which can be obtained using 
 
 ### `nextcloud_version`
 Version of nextcloud to install.
-Default: `"20.0.7"`
+Default: `"21.0.0"`
 
 ### `nextcloud_domain`
 Domain name to use.
@@ -133,6 +138,10 @@ Default:
 - redis-tools
 - unzip
 ```
+
+### `nextcloud_apps`
+List of apps to install and enable.
+Default: `[]`
 
 ## Example Playbook
 You can refer to [prepare.yml](molecule/default/prepare.yml) and [converge.yml](molecule/default/converge.yml) to see a working example.

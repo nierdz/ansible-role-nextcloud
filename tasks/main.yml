@@ -8,6 +8,9 @@
 - name: Import update tasks
   import_tasks: update.yml
 
+- name: Import configure tasks
+  import_tasks: configure.yml
+
 - name: Find old releases
   find:
     paths: "{{ nextcloud_releases_path }}"
