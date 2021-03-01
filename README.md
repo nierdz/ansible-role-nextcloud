@@ -1,4 +1,4 @@
-[![CI Status](https://github.com/nierdz/ansible-role-netxcloud/workflows/CI/badge.svg?branch=master)](https://github.com/nierdz/ansible-role-nextcloud/actions?query=workflow%3ACI)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/nierdz/ansible-role-nextcloud/CI)](https://github.com/nierdz/ansible-role-nextcloud/actions/workflows/ci.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # Nextcloud
