@@ -11,3 +11,6 @@
     nextcloud_passwordsalt: "notsecurepasswordsalt"
     nextcloud_secret: "notsecuresecret"
     nextcloud_dbpassword: "notsecurepassword"
+    nextcloud_apps:
+      - calendar
+      - tasks

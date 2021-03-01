@@ -139,6 +139,10 @@ Default:
 - unzip
 ```
 
+### `nextcloud_apps`
+List of apps to install and enable.
+Default: `[]`
+
 ## Example Playbook
 You can refer to [prepare.yml](molecule/default/prepare.yml) and [converge.yml](molecule/default/converge.yml) to see a working example.
 
