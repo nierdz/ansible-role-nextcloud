@@ -15,10 +15,8 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      - name: install dependencies
-        run: |
-          python -m pip install --upgrade pip virtualenv
-          make install
+      - name: Install ansible
+        run: pip3 install ansible-base
       - name: Import role on galaxy
         run: ansible-galaxy role import --token ${{ secrets.GALAXY_API_KEY }} ${GITHUB_REPOSITORY/\// }
   release:

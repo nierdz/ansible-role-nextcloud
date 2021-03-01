@@ -12,7 +12,7 @@ platforms:
     published_ports:
       - 0.0.0.0:8080:80/tcp
       - 0.0.0.0:4343:443/tcp
-lint: ansible-lint -x 602
+lint: ansible-lint -x 602 --exclude molecule
 provisioner:
   name: ansible
 verifier:
