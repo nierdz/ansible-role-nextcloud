@@ -13,6 +13,8 @@ This **ansible** role install [nextcloud](https://nextcloud.com/) the capistrano
 └── nextcloud.local
     ├── current -> /var/www/nextcloud.local/releases/20.0.7
     │   └── nextcloud
+    │       └── config
+    │          └── config.php -> /var/www/shared/config.php
     ├── data
     │   ├── admin
     │   ├── appdata_somerandomshit
