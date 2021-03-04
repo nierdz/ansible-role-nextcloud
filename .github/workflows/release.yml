@@ -18,22 +18,27 @@ jobs:
       - name: Install ansible
         run: pip3 install ansible-base
       - name: Import role on galaxy
+        shell: bash
         run: ansible-galaxy role import --token ${{ secrets.GALAXY_API_KEY }} ${GITHUB_REPOSITORY/\// }
   release:
-    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Build Changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+        id: git-chglog
+        shell: bash
+        run: |
+          curl -o git-chglog_0.10.0_linux_amd64.tar.gz -L https://github.com/git-chglog/git-chglog/releases/download/v0.10.0/git-chglog_0.10.0_linux_amd64.tar.gz
+          tar xvzf git-chglog_0.10.0_linux_amd64.tar.gz git-chglog
+          chmod +x ./git-chglog
+          ./git-chglog "${GITHUB_REF##*/}" > changelog.md
       - name: Create Release
         uses: actions/create-release@v1
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
-          body: ${{steps.github_release.outputs.changelog}}
+          body_path: changelog.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

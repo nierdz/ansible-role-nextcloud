@@ -69,6 +69,17 @@
   when: nextcloud_symlink.stat.islnk is not defined or
         nextcloud_symlink.stat.lnk_target != nextcloud_version_path
 
+- name: Create symlink to config.php when nextcloud is already installed
+  file:
+    state: link
+    path: "{{ nextcloud_current_path }}/nextcloud/config/config.php"
+    src: "{{ nextcloud_shared_path }}/config.php"
+    force: true
+  when:
+    - nextcloud_symlink.stat.islnk is not defined or
+      nextcloud_symlink.stat.lnk_target != nextcloud_version_path
+    - nextcloud_is_installed.rowcount != [0]
+
 - name: Install nextcloud
   become: true
   become_user: "{{ nextcloud_php_user }}"
@@ -101,15 +112,16 @@
     dest: "{{ nextcloud_shared_path }}/config.php"
     owner: "{{ nextcloud_php_user }}"
     group: "{{ nextcloud_php_user }}"
-    mode: 0400
+    mode: 0600
   register: nextcloud_config_update
 
-- name: Create symlink to config.php
+- name: Create symlink to config.php when this is the first installation
   file:
     state: link
     path: "{{ nextcloud_current_path }}/nextcloud/config/config.php"
     src: "{{ nextcloud_shared_path }}/config.php"
     force: true
+  when: nextcloud_is_installed.rowcount == [0]
 
 - name: Start php-fpm service
   service:
