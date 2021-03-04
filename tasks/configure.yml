@@ -32,6 +32,7 @@
 - name: Set nextcloud_enabled_apps variable
   set_fact:
     nextcloud_enabled_apps: "{{ (nextcloud_app_list.stdout | from_json).enabled | list }}"
+  when: nextcloud_apps is defined and nextcloud_apps | length > 0
 
 - name: Enable apps
   become: true
