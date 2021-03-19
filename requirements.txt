@@ -1,6 +1,6 @@
 ansible==3.1.0
 ansible-base==2.10.6
-ansible-lint==5.0.3
+ansible-lint==5.0.4
 molecule==3.2.4
 molecule-podman==0.3.0
 pre-commit==2.11.1
