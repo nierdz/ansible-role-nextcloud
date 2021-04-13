@@ -1,5 +1,5 @@
 ansible==3.2.0
-ansible-base==2.10.7
+ansible-base==2.10.8
 ansible-lint==5.0.6
 molecule==3.3.0
 molecule-podman==0.3.0
