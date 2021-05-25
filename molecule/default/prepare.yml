@@ -7,6 +7,7 @@
     # Nginx
     nginx_user: nginx
     nginx_remove_default_vhost: true
+    nginx_listen_ipv6: false
     nginx_vhosts:
       - server_name: "{{ nextcloud_domain }}"
         listen: "*:443 ssl http2 default_server"
