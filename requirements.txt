@@ -1,7 +1,7 @@
 ansible==4.0.0
 ansible-base==2.10.10
 ansible-lint==5.0.12
-molecule==3.3.2
+molecule==3.3.4
 molecule-podman==0.3.0
 pre-commit==2.13.0
 pytest-testinfra==6.3.0
