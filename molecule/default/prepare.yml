@@ -155,6 +155,47 @@
         mode: 0440
       with_fileglob:
         - "{{ lookup('env', 'MAIN_DIR') }}/certs/*.pem"
+      register: copy_certs
+    - name: Create dummy certificates
+      block:
+        - name: Install required package
+          apt:
+            package: python3-cryptography
+            state: present
+        - name: Create nginx configuration directory
+          file:
+            path: /etc/nginx
+            state: directory
+            owner: root
+            group: root
+            mode: '0750'
+        - name: Generate an SSL private key
+          openssl_privatekey:
+            path: "/etc/nginx/{{ nextcloud_domain }}-key.pem"
+            type: ECC
+            curve: secp384r1
+            state: present
+            owner: root
+            group: root
+            mode: '0440'
+        - name: Generate a Certificate Signing Request
+          openssl_csr:
+            path: "/etc/nginx/{{ nextcloud_domain }}.csr"
+            privatekey_path: "/etc/nginx/{{ nextcloud_domain }}-key.pem"
+            common_name: "{{ nextcloud_domain }}"
+            owner: root
+            group: root
+            mode: '0440'
+        - name: Generate a self signed SSL certificate
+          community.crypto.x509_certificate:
+            path: "/etc/nginx/{{ nextcloud_domain }}.pem"
+            privatekey_path: "/etc/nginx/{{ nextcloud_domain }}-key.pem"
+            csr_path: "/etc/nginx/{{ nextcloud_domain }}.csr"
+            provider: selfsigned
+            owner: root
+            group: root
+            mode: '0440'
+      when: copy_certs is skipped
 
   roles:
     - { role: geerlingguy.nginx,
