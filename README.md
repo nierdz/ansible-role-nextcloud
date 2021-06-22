@@ -73,6 +73,13 @@ Default: `""`
 Password of `nextcloud_admin_user`. It's strongy recommended to vault this with [ansible-vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html)
 Default: `""`
 
+### `nextcloud_config_template`
+Jinja2 template to use for the Nextcloud's `config.php`. To use a custom config template, you need to:
+* create a `templates/` directory at the same level as your playbook
+* create a `templates/myconfig.php.j2` file (just choose a different name from the default template)
+* in your playbook set the var `nextcloud_config_template: myconfig.php.j2`
+Default: `"config.php.j2"`
+
 ### `nextcloud_instanceid`
 Unique instanceid. Generate a random one and keep it as long as your installation is alive.
 Default: `""`

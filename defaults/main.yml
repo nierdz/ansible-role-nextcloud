@@ -7,6 +7,7 @@ nextcloud_php_version: "{{ php_default_version_debian | default('7.4') }}"
 nextcloud_keep_releases: "60d"
 nextcloud_admin_user: ""
 nextcloud_admin_password: ""
+nextcloud_config_template: "config.php.j2"
 
 # To generate config.php
 nextcloud_instanceid: ""
