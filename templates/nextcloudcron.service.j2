@@ -1,0 +1,9 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Nextcloud cron.php job
+
+[Service]
+User={{ nextcloud_php_user }}
+ExecStart=/usr/bin/php -f {{ nextcloud_current_path }}/nextcloud/cron.php
+KillMode=process

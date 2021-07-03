@@ -127,3 +127,20 @@
   service:
     name: php{{ nextcloud_php_version }}-fpm
     state: started
+
+- name: Create systemd service for Background jobs
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - nextcloudcron.service
+    - nextcloudcron.timer
+
+- name: Ensure systemd service for Background jobs is enabled
+  service:
+    name: nextcloudcron.timer
+    enabled: true
+    state: started
