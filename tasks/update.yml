@@ -108,7 +108,7 @@
 
 - name: Create {{ nextcloud_shared_path }}/config.php
   template:
-    src: config.php.j2
+    src: "{{ nextcloud_config_template }}"
     dest: "{{ nextcloud_shared_path }}/config.php"
     owner: "{{ nextcloud_php_user }}"
     group: "{{ nextcloud_php_user }}"
