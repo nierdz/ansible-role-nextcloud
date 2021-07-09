@@ -25,38 +25,6 @@ pre-commit: ## Run pre-commit tests
 		source $(VIRTUALENV_DIR)/bin/activate; \
 		pre-commit run --all-files; \
 	)
-
-molecule-create: mkcert ## Run molecule create
-	$(info --> Run molecule create)
-	@( \
-		source $(VIRTUALENV_DIR)/bin/activate; \
-		export MAIN_DIR=$(MAIN_DIR); \
-		molecule create; \
-	)
-
-molecule-converge: ## Run molecule converge
-	$(info --> Run molecule converge)
-	@( \
-		source $(VIRTUALENV_DIR)/bin/activate; \
-		molecule converge; \
-	)
-
-molecule-test: mkcert ## Run molecule test
-	$(info --> Run molecule test)
-	@( \
-		source $(VIRTUALENV_DIR)/bin/activate; \
-		export MAIN_DIR=$(MAIN_DIR); \
-		molecule test; \
-	)
-
-molecule-destroy: ## Run molecule destroy
-	$(info --> Run molecule destroy)
-	@( \
-		source $(VIRTUALENV_DIR)/bin/activate; \
-		export MAIN_DIR=$(MAIN_DIR); \
-		molecule destroy; \
-	)
-
 certs:
 	mkdir certs
 
