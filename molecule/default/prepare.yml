@@ -154,7 +154,7 @@
         group: root
         mode: 0440
       with_fileglob:
-        - "{{ lookup('env', 'MAIN_DIR') }}/certs/*.pem"
+        - "{{ playbook_dir }}/../../certs/*.pem"
 
   roles:
     - { role: geerlingguy.nginx,
