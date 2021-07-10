@@ -347,6 +347,10 @@ php_opcache_revalidate_freq: "1"
 php_opcache_max_file_size: "0"
 ```
 
+### Developer documentation
+
+[dev documentation](https://github.com/nierdz/ansible-role-nextcloud/blob/master/docs/development.md)
+
 ## License
 
 [GPLv3](LICENCE)
