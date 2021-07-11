@@ -1,6 +1,6 @@
 ---
 # General
-nextcloud_version: "21.0.2"
+nextcloud_version: "22.0.0"
 nextcloud_domain: ""
 nextcloud_php_user: "{{ php_fpm_pool_user | default('www-data') }}"
 nextcloud_php_version: "{{ php_default_version_debian | default('7.4') }}"
@@ -39,9 +39,9 @@ nextcloud_php_packages:
   - php{{ nextcloud_php_version }}-xml
   - php{{ nextcloud_php_version }}-zip
 nextcloud_packages:
+  - bzip2
   - redis-server
   - redis-tools
-  - unzip
 
 # Post configuration
 nextcloud_apps: []
