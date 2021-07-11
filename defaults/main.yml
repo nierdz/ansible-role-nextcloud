@@ -39,9 +39,9 @@ nextcloud_php_packages:
   - php{{ nextcloud_php_version }}-xml
   - php{{ nextcloud_php_version }}-zip
 nextcloud_packages:
+  - bzip2
   - redis-server
   - redis-tools
-  - unzip
 
 # Post configuration
 nextcloud_apps: []

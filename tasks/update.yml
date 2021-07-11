@@ -16,7 +16,7 @@
 - name: Download nextcloud archive
   unarchive:
     remote_src: true
-    src: https://download.nextcloud.com/server/releases/nextcloud-{{ nextcloud_version }}.zip
+    src: https://download.nextcloud.com/server/releases/nextcloud-{{ nextcloud_version }}.tar.bz2
     dest: "{{ nextcloud_version_path }}"
     owner: "{{ nextcloud_php_user }}"
     group: "{{ nextcloud_php_user }}"
