@@ -21,13 +21,12 @@
 - name: Check some variables are defined and not empty
   fail:
     msg: Variable {{ item }} is undefined or empty, we can't go further
-  when: (item is not defined) or
-        ( item == "")
+  when: (item is not defined) or ( item|length == 0 )
   loop:
-    - nextcloud_domain
-    - nextcloud_admin_user
-    - nextcloud_admin_password
-    - nextcloud_instanceid
-    - nextcloud_passwordsalt
-    - nextcloud_secret
-    - nextcloud_dbpassword
+    - "{{ nextcloud_domain }}"
+    - "{{ nextcloud_admin_user }}"
+    - "{{ nextcloud_admin_password }}"
+    - "{{ nextcloud_instanceid }}"
+    - "{{ nextcloud_passwordsalt }}"
+    - "{{ nextcloud_secret }}"
+    - "{{ nextcloud_dbpassword }}"
