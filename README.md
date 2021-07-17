@@ -6,7 +6,7 @@
 
 # Nextcloud
 
-This **ansible** role install [nextcloud](https://nextcloud.com/) the capistrano way. This means, the folder structure look likes this:
+This **ansible** role installs [nextcloud](https://nextcloud.com/) the capistrano way. This means, the folder structure looks like this:
 
 ```
 /var/wwww
@@ -33,15 +33,15 @@ For now, this role only supports **MySQL** as backend. It uses **redis** with de
 
 ## Requirements
 
-**Nextcloud** needs **PHP**, a **web server** and a **DBMS** to work. To fulfill these requirements it's strongly recommended to use these 3 roles:
+**Nextcloud** needs **PHP**, a **web server** and a **DBMS** to work. To fulfill these requirements, it's strongly recommended to use these 3 roles:
 
  - [geerlingguy/mysql](https://galaxy.ansible.com/geerlingguy/mysql)
  - [geerlingguy/php](https://galaxy.ansible.com/geerlingguy/php)
  - [geerlingguy/nginx](https://galaxy.ansible.com/geerlingguy/nginx)
 
-Why particulary those roles ? Because they're pretty well maintained and some variables from theses roles are used in this one but you can still use other roles.
+Why particularly those roles ? Because they're pretty well maintained and some variables from these roles are used in this one, but you can still use other roles.
 
-In production, you will also need a TLS certificate which can be obtained using [acme.sh](https://github.com/acmesh-official/acme.sh). This part is covered in example playbook.
+In production, you will also need a TLS certificate, which can be obtained using [acme.sh](https://github.com/acmesh-official/acme.sh).
 
 ## Role Variables
 
@@ -58,7 +58,7 @@ All nextcloud files will be owned by this user. Usually you need to set this val
 Default: `"{{ php_fpm_pool_user | default('www-data') }}"`
 
 ### `nextcloud_php_version`
-Major version of php to use. Could be one of `7.2`, `7.3`, `7.4` or `8.0`.
+Major version of PHP to use. Could be one of `7.2`, `7.3`, `7.4` or `8.0`.
 Default: `"{{ php_default_version_debian | default('7.4') }}"`
 
 ### `nextcloud_keep_releases`
@@ -66,11 +66,11 @@ How long you want to keep old releases.
 Default: `"60d"`
 
 ### `nextcloud_admin_user`
-Default admin user created during installation. Once install is done you can create another user with admin role and remove this one.
+Default admin user created during installation. Once install is done, you can create another user with admin role and remove this one.
 Default: `""`
 
 ### `nextcloud_admin_password`
-Password of `nextcloud_admin_user`. It's strongy recommended to vault this with [ansible-vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html)
+Password of `nextcloud_admin_user`. It's strongly recommended vaulting this with [ansible-vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html)
 Default: `""`
 
 ### `nextcloud_config_template`
@@ -85,11 +85,11 @@ Unique instanceid. Generate a random one and keep it as long as your installatio
 Default: `""`
 
 ### `nextcloud_passwordsalt`
-The salt used to hash all passwords. It's strongy recommended to vault this with [ansible-vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html)
+The salt used to hash all passwords. It's strongly recommended vaulting this with [ansible-vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html)
 Default: `""`
 
 ### `nextcloud_secret`
-Secret used by nextcloud for various purposes, e.g. to encrypt data. If you lose this string there will be data corruption. It's strongy recommended to vault this with [ansible-vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html)
+Secret used by nextcloud for various purposes, e.g. to encrypt data. If you lose this string there will be data corruption. It's strongly recommended vaulting this with [ansible-vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html)
 Default: `""`
 
 ### `nextcloud_dbhost`
@@ -97,7 +97,7 @@ Host to use to connect the database.
 Default: `"localhost"`
 
 ### `nextcloud_dbname`
-The name of the nextcloud database which is set during installation.
+The name of the nextcloud database, which is set during installation.
 Default: `"nextcloud"`
 
 
@@ -106,7 +106,7 @@ The user that nextcloud uses to read and write the database.
 Default: `"nextcloud"`
 
 ### `nextcloud_dbpassword`
-Password of `nextcloud_dbuser`. It's strongy recommended to vault this with [ansible-vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html)
+Password of `nextcloud_dbuser`. It's strongly recommended vaulting this with [ansible-vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html)
 Default: `""`
 
 ### `nextcloud_deploy_to`
@@ -118,7 +118,7 @@ Where user files are stored.
 Default: `"{{ nextcloud_deploy_to }}/data"`
 
 ### `nextcloud_php_packages`
-Additional php packages needed by nextcloud.
+Additional PHP packages needed by nextcloud.
 Default:
 ```
 - php-pear

@@ -17,7 +17,7 @@ As this is the first time `direnv` meets this new [.envrc](../.envrc) file you'l
 
 Run `make install` this will create a python virtual environment and install everything needed inside it. With the help of `direnv` every time you go in this repository, the virtual environment is automatically loaded.
 
-Run `make mkcert` to create self signed certificates trusted by your browser.
+Run `make mkcert` to create self-signed certificates trusted by your browser.
 
 Edit your `/etc/hosts` to add `127.0.0.1	nextcloud.local`.
 
