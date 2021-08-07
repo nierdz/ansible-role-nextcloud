@@ -1,6 +1,6 @@
 ansible==4.3.0
 ansible-lint==5.1.2
-molecule==3.3.4
+molecule==3.4.0
 molecule-podman==0.3.0
 pre-commit==2.13.0
 pytest-testinfra==6.4.0
