@@ -46,3 +46,6 @@ nextcloud_packages:
 
 # Post configuration
 nextcloud_apps: []
+
+# Hide sensitive data during deploy
+nextcloud_no_log: true
