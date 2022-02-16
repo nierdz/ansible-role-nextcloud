@@ -150,6 +150,10 @@ Default:
 List of apps to install and enable.
 Default: `[]`
 
+### `nextcloud_no_log`
+Hide sensitive data during deploy.
+Default: `true`
+
 ## Working example
 
 Here is what you should have in your `playbook.yml`:

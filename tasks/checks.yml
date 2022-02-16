@@ -30,3 +30,4 @@
     - "{{ nextcloud_passwordsalt }}"
     - "{{ nextcloud_secret }}"
     - "{{ nextcloud_dbpassword }}"
+  no_log: "{{ nextcloud_no_log }}"
