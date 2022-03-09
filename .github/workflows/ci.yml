@@ -5,13 +5,13 @@ on: push
 
 jobs:
   pre-commit:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: set up Python 3.8
+      - name: set up Python 3.9
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: 3.9
       - name: install dependencies
         run: |
           python -m pip install --upgrade pip virtualenv
@@ -19,20 +19,20 @@ jobs:
       - name: run pre-commit checks
         run: make pre-commit
 
-#  molecule:
-#    runs-on: ubuntu-20.04
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: set up Python 3.8
-#        uses: actions/setup-python@v1
-#        with:
-#          python-version: 3.8
-#      - name: Install dependencies
-#        run: |
-#          sudo python3 -m pip install --upgrade pip
-#          sudo python3 -m pip install -r requirements.txt
-#          sudo wget -O /usr/local/bin/mkcert https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
-#          sudo chmod +x /usr/local/bin/mkcert
-#          make mkcert
-#      - name: Run molecule test
-#        run: sudo molecule --debug -vvvvv test
+  molecule:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          sudo python3 -m pip install --upgrade pip
+          sudo python3 -m pip install -r requirements.txt
+          sudo wget -O /usr/local/bin/mkcert https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
+          sudo chmod +x /usr/local/bin/mkcert
+          make mkcert
+      - name: Run molecule test
+        run: sudo molecule --debug -vvvvv test
