@@ -2,7 +2,7 @@
 - name: Check installed apps
   become: true
   become_user: "{{ nextcloud_php_user }}"
-  command: /usr/bin/php occ app:getpath --no-interaction {{ item }}
+  ansible.builtin.command: /usr/bin/php occ app:getpath --no-interaction {{ item }}
   args:
     chdir: "{{ nextcloud_current_path }}/nextcloud"
   failed_when: false
@@ -13,7 +13,7 @@
 - name: Install apps
   become: true
   become_user: "{{ nextcloud_php_user }}"
-  command: /usr/bin/php occ app:install --no-interaction --keep-disabled {{ item.item }}
+  ansible.builtin.command: /usr/bin/php occ app:install --no-interaction --keep-disabled {{ item.item }}
   args:
     chdir: "{{ nextcloud_current_path }}/nextcloud"
   loop: "{{ nextcloud_installed_apps.results }}"
@@ -22,7 +22,7 @@
 - name: List enabled apps
   become: true
   become_user: "{{ nextcloud_php_user }}"
-  command: /usr/bin/php occ app:list --no-interaction --output=json
+  ansible.builtin.command: /usr/bin/php occ app:list --no-interaction --output=json
   args:
     chdir: "{{ nextcloud_current_path }}/nextcloud"
   when: nextcloud_apps is defined and nextcloud_apps | length > 0
@@ -30,14 +30,14 @@
   register: nextcloud_app_list
 
 - name: Set nextcloud_enabled_apps variable
-  set_fact:
+  ansible.builtin.set_fact:
     nextcloud_enabled_apps: "{{ (nextcloud_app_list.stdout | from_json).enabled | list }}"
   when: nextcloud_apps is defined and nextcloud_apps | length > 0
 
 - name: Enable apps
   become: true
   become_user: "{{ nextcloud_php_user }}"
-  command: /usr/bin/php occ app:enable --no-interaction {{ item }}
+  ansible.builtin.command: /usr/bin/php occ app:enable --no-interaction {{ item }}
   args:
     chdir: "{{ nextcloud_current_path }}/nextcloud"
   when: item not in nextcloud_enabled_apps

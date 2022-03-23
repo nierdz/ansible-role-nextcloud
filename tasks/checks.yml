@@ -1,25 +1,25 @@
 ---
 - name: Check distribution is Debian or Ubuntu
-  fail:
+  ansible.builtin.fail:
     msg: "{{ ansible_distribution }} is not supported by this role"
   when: ansible_facts['distribution'] not in ['Debian', 'Ubuntu']
 
 - name: Check distribution is Debian 10 or newer
-  fail:
+  ansible.builtin.fail:
     msg: "{{ ansible_facts['distribution_version'] }} is not a supported version of {{ ansible_facts['distribution'] }} for this role"
   when:
     - ansible_facts['distribution'] == "Debian"
     - (ansible_facts['distribution_version'] != 'buster/sid') and ansible_facts['distribution_version'] is version('10', '<')
 
 - name: Check distribution is Ubuntu 18.04 or newer
-  fail:
+  ansible.builtin.fail:
     msg: "{{ ansible_facts['distribution_version'] }} is not a supported version of {{ ansible_facts['distribution'] }} for this role"
   when:
     - ansible_facts['distribution'] == "Ubuntu"
     - ansible_facts['distribution_version'] is version('18.04', '<')
 
 - name: Check some variables are defined and not empty
-  fail:
+  ansible.builtin.fail:
     msg: Variable {{ item }} is undefined or empty, we can't go further
   when: (item is not defined) or ( item|length == 0 )
   loop:

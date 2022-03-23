@@ -12,7 +12,7 @@
   import_tasks: configure.yml
 
 - name: Find old releases
-  find:
+  ansible.builtin.find:
     paths: "{{ nextcloud_releases_path }}"
     age: "{{ nextcloud_keep_releases }}"
     file_type: directory
@@ -20,7 +20,7 @@
   register: old_releases
 
 - name: Register current release
-  find:
+  ansible.builtin.find:
     paths: "{{ nextcloud_releases_path }}"
     file_type: directory
     recurse: no
@@ -28,7 +28,7 @@
   register: current_release
 
 - name: Delete old releases
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     state: absent
   with_items: "{{ old_releases.files | difference(current_release.files) }}"

@@ -1,11 +1,11 @@
 ---
 - name: Check if nextcloud {{ nextcloud_version_path }} exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ nextcloud_version_path }}"
   register: nextcloud_release
 
 - name: Create {{ nextcloud_version_path }}
-  file:
+  ansible.builtin.file:
     state: directory
     path: "{{ nextcloud_version_path }}"
     owner: "{{ nextcloud_php_user }}"
@@ -14,7 +14,7 @@
   when: not nextcloud_release.stat.exists
 
 - name: Download nextcloud archive
-  unarchive:
+  ansible.builtin.unarchive:
     remote_src: true
     src: https://download.nextcloud.com/server/releases/nextcloud-{{ nextcloud_version }}.tar.bz2
     dest: "{{ nextcloud_version_path }}"
@@ -26,7 +26,7 @@
 - name: Get long nextcloud version
   become: true
   become_user: "{{ nextcloud_php_user }}"
-  shell: |
+  ansible.builtin.shell: |
     set -o pipefail
     sed -rn "s/.*Version = array\((.*)\);/\1/p" "{{ nextcloud_version_path }}/nextcloud/version.php" |
     sed "s/,/./g"
@@ -37,7 +37,7 @@
 
 # Do not use occ status here cause it relies on a proper config.php
 - name: Check if nextcloud is installed
-  mysql_query:
+  community.mysql.mysql_query:
     login_db: "{{ nextcloud_dbname }}"
     login_host: "{{ nextcloud_dbhost }}"
     login_user: "{{ nextcloud_dbuser }}"
@@ -47,21 +47,21 @@
   changed_when: false
 
 - name: Check actual symlink
-  stat:
+  ansible.builtin.stat:
     path: "{{ nextcloud_current_path }}"
   register: nextcloud_symlink
   failed_when: false
   changed_when: false
 
 - name: Stop php-fpm service
-  service:
+  ansible.builtin.service:
     name: php{{ nextcloud_php_version }}-fpm
     state: stopped
   when: nextcloud_symlink.stat.islnk is not defined or
         nextcloud_symlink.stat.lnk_target != nextcloud_version_path
 
 - name: Update symlink
-  file:
+  ansible.builtin.file:
     state: link
     path: "{{ nextcloud_current_path }}"
     src: "{{ nextcloud_version_path }}"
@@ -70,7 +70,7 @@
         nextcloud_symlink.stat.lnk_target != nextcloud_version_path
 
 - name: Create symlink to config.php when nextcloud is already installed
-  file:
+  ansible.builtin.file:
     state: link
     path: "{{ nextcloud_current_path }}/nextcloud/config/config.php"
     src: "{{ nextcloud_shared_path }}/config.php"
@@ -83,7 +83,7 @@
 - name: Install nextcloud
   become: true
   become_user: "{{ nextcloud_php_user }}"
-  command: >
+  ansible.builtin.command: >
     /usr/bin/php occ maintenance:install
       --database "mysql"
       --database-name "{{ nextcloud_dbname }}"
@@ -100,14 +100,14 @@
 - name: Run occ upgrade
   become: true
   become_user: "{{ nextcloud_php_user }}"
-  command: /usr/bin/php occ upgrade
+  ansible.builtin.command: /usr/bin/php occ upgrade
   args:
     chdir: "{{ nextcloud_current_path }}/nextcloud"
   when: nextcloud_symlink.stat.islnk is not defined or
         nextcloud_symlink.stat.lnk_target != nextcloud_version_path
 
 - name: Create {{ nextcloud_shared_path }}/config.php
-  template:
+  ansible.builtin.template:
     src: "{{ nextcloud_config_template }}"
     dest: "{{ nextcloud_shared_path }}/config.php"
     owner: "{{ nextcloud_php_user }}"
@@ -116,7 +116,7 @@
   register: nextcloud_config_update
 
 - name: Create symlink to config.php when this is the first installation
-  file:
+  ansible.builtin.file:
     state: link
     path: "{{ nextcloud_current_path }}/nextcloud/config/config.php"
     src: "{{ nextcloud_shared_path }}/config.php"
@@ -124,12 +124,12 @@
   when: nextcloud_is_installed.rowcount == [0]
 
 - name: Start php-fpm service
-  service:
+  ansible.builtin.service:
     name: php{{ nextcloud_php_version }}-fpm
     state: started
 
 - name: Create systemd service for Background jobs
-  template:
+  ansible.builtin.template:
     src: "{{ item }}.j2"
     dest: "/etc/systemd/system/{{ item }}"
     owner: root
@@ -140,7 +140,7 @@
     - nextcloudcron.timer
 
 - name: Ensure systemd service for Background jobs is enabled
-  service:
+  ansible.builtin.service:
     name: nextcloudcron.timer
     enabled: true
     state: started
