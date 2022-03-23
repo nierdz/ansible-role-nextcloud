@@ -1,4 +1,4 @@
-ansible==5.4.0
+ansible==5.5.0
 ansible-lint==6.0.1
 molecule==3.6.1
 molecule-podman==1.1.0
