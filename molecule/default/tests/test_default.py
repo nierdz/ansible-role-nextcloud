@@ -12,7 +12,7 @@ def test_nginx_running_and_enabled(host):
     assert nginx.is_enabled
 
 def test_php_running_and_enabled(host):
-    php = host.service("php7.4-fpm")
+    php = host.service("php8.0-fpm")
     assert php.is_running
     assert php.is_enabled
 
