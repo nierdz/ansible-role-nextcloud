@@ -20,6 +20,9 @@ jobs:
         run: make pre-commit
 
   molecule:
+    strategy:
+      matrix:
+        debian_version: [10, 11]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -36,3 +39,5 @@ jobs:
           make mkcert
       - name: Run molecule test
         run: sudo molecule --debug -vvvvv test
+        env:
+          DEBIAN_VERSION: ${{ matrix.debian_version }}
