@@ -14,7 +14,7 @@ $(VIRTUALENV_DIR):
 	virtualenv -p $(shell command -v python3) $(VIRTUALENV_DIR)
 
 $(VIRTUALENV_DIR)/bin/ansible: $(MAIN_DIR)/requirements.txt
-	pip install -r $(MAIN_DIR)/requirements.txt
+	pip3 install -r $(MAIN_DIR)/requirements.txt
 	@touch '$(@)'
 
 install: $(VIRTUALENV_DIR) $(VIRTUALENV_DIR)/bin/ansible ## Install python pip packages in a virtual environment
