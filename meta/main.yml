@@ -7,8 +7,8 @@ galaxy_info:
   platforms:
   - name: Debian
     versions:
-    - 10
-    - 11
+    - buster
+    - bullseye
 
   galaxy_tags:
     - nextcloud
