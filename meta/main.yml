@@ -1,3 +1,4 @@
+---
 galaxy_info:
   role_name: nextcloud
   author: nierdz
@@ -9,12 +10,10 @@ galaxy_info:
     versions:
     - buster
     - bullseye
-
   galaxy_tags:
     - nextcloud
     - owncloud
     - php
     - nginx
     - mysql
-
 dependencies: []
