@@ -1,15 +1,15 @@
 ---
 - name: Import check tasks
-  import_tasks: checks.yml
+  ansible.builtin.import_tasks: checks.yml
 
 - name: Import setup tasks
-  import_tasks: setup.yml
+  ansible.builtin.import_tasks: setup.yml
 
 - name: Import update tasks
-  import_tasks: update.yml
+  ansible.builtin.import_tasks: update.yml
 
 - name: Import configure tasks
-  import_tasks: configure.yml
+  ansible.builtin.import_tasks: configure.yml
 
 - name: Find old releases
   ansible.builtin.find:
