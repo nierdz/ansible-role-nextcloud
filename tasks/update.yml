@@ -1,5 +1,5 @@
 ---
-- name: Check if nextcloud {{ nextcloud_version_path }} exists
+- name: Check this path already exists {{ nextcloud_version_path }}
   ansible.builtin.stat:
     path: "{{ nextcloud_version_path }}"
   register: nextcloud_release
@@ -106,7 +106,7 @@
   when: nextcloud_symlink.stat.islnk is not defined or
         nextcloud_symlink.stat.lnk_target != nextcloud_version_path
 
-- name: Create {{ nextcloud_shared_path }}/config.php
+- name: Create config.php in {{ nextcloud_shared_path }}
   ansible.builtin.template:
     src: "{{ nextcloud_config_template }}"
     dest: "{{ nextcloud_shared_path }}/config.php"
