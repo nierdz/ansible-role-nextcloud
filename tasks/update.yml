@@ -98,6 +98,18 @@
   when: nextcloud_is_installed.rowcount == [0]
   no_log: "{{ nextcloud_no_log }}"
 
+# Need to remove config_is_read_only from config.php before running occ upgrade
+# https://github.com/nextcloud/server/issues/32291
+- name: Remove config_is_read_only from config.php before running occ upgrade (only when nextcloud is already installed)
+  ansible.builtin.replace:
+    path: "{{ nextcloud_shared_path }}/config.php"
+    regexp: ".*config_is_read_only.*"
+    replace: ""
+  when:
+    - nextcloud_symlink.stat.islnk is not defined or
+      nextcloud_symlink.stat.lnk_target != nextcloud_version_path
+    - nextcloud_is_installed.rowcount != [0]
+
 - name: Run occ upgrade
   become: true
   become_user: "{{ nextcloud_php_user }}"
