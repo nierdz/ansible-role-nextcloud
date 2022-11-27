@@ -61,6 +61,10 @@ Default: `"{{ php_fpm_pool_user | default('www-data') }}"`
 Major version of PHP to use. Could be one of `7.4` or `8.0`.
 Default: `"{{ php_default_version_debian | default('8.0') }}"`
 
+### `nextcloud_php_bin_path`
+Path to PHP binary.
+Default: `/usr/bin/php`
+
 ### `nextcloud_keep_releases`
 How long you want to keep old releases.
 Default: `"60d"`
