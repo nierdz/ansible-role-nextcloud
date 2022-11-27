@@ -84,7 +84,7 @@
   become: true
   become_user: "{{ nextcloud_php_user }}"
   ansible.builtin.command: >
-    /usr/bin/php occ maintenance:install
+    "{{ nextcloud_php_bin_path }}" occ maintenance:install
       --database "mysql"
       --database-name "{{ nextcloud_dbname }}"
       --database-host "{{ nextcloud_dbhost }}"
@@ -100,7 +100,7 @@
 - name: Run occ upgrade
   become: true
   become_user: "{{ nextcloud_php_user }}"
-  ansible.builtin.command: /usr/bin/php occ upgrade
+  ansible.builtin.command: "{{ nextcloud_php_bin_path }} occ upgrade"
   args:
     chdir: "{{ nextcloud_current_path }}/nextcloud"
   when: nextcloud_symlink.stat.islnk is not defined or
