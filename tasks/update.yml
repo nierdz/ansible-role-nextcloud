@@ -1,10 +1,10 @@
 ---
-- name: Check this path already exists {{ nextcloud_version_path }}
+- name: Check {{ nextcloud_version_path }} path
   ansible.builtin.stat:
     path: "{{ nextcloud_version_path }}"
   register: nextcloud_release
 
-- name: Create {{ nextcloud_version_path }}
+- name: Create {{ nextcloud_version_path }} directory
   ansible.builtin.file:
     state: directory
     path: "{{ nextcloud_version_path }}"
@@ -13,7 +13,7 @@
     mode: 0755
   when: not nextcloud_release.stat.exists
 
-- name: Download nextcloud archive
+- name: Download nextcloud {{ nextcloud_version }} archive
   ansible.builtin.unarchive:
     remote_src: true
     src: https://download.nextcloud.com/server/releases/nextcloud-{{ nextcloud_version }}.tar.bz2
