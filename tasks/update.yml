@@ -96,6 +96,7 @@
   args:
     chdir: "{{ nextcloud_current_path }}/nextcloud"
   when: nextcloud_is_installed.rowcount == [0]
+  no_log: "{{ nextcloud_no_log }}"
 
 - name: Run occ upgrade
   become: true
@@ -114,6 +115,7 @@
     group: "{{ nextcloud_php_user }}"
     mode: 0600
   register: nextcloud_config_update
+  no_log: "{{ nextcloud_no_log }}"
 
 - name: Create symlink to config.php when this is the first installation
   ansible.builtin.file:
