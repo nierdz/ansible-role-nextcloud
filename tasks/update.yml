@@ -95,6 +95,7 @@
       --data-dir "{{ nextcloud_datadirectory }}"
   args:
     chdir: "{{ nextcloud_current_path }}/nextcloud"
+  changed_when: true
   when: nextcloud_is_installed.rowcount == [0]
   no_log: "{{ nextcloud_no_log }}"
 
@@ -118,6 +119,7 @@
     chdir: "{{ nextcloud_current_path }}/nextcloud"
   when: nextcloud_symlink.stat.islnk is not defined or
         nextcloud_symlink.stat.lnk_target != nextcloud_version_path
+  changed_when: true
 
 - name: Create config.php in {{ nextcloud_shared_path }}
   ansible.builtin.template:

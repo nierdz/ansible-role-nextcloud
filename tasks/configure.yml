@@ -17,6 +17,7 @@
   args:
     chdir: "{{ nextcloud_current_path }}/nextcloud"
   loop: "{{ nextcloud_installed_apps.results }}"
+  changed_when: true
   when: item.rc == 1
 
 - name: List enabled apps
@@ -41,4 +42,5 @@
   args:
     chdir: "{{ nextcloud_current_path }}/nextcloud"
   when: item not in nextcloud_enabled_apps
+  changed_when: true
   loop: "{{ nextcloud_apps }}"
