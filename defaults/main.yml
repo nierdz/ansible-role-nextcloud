@@ -1,6 +1,6 @@
 ---
 # General
-nextcloud_version: "27.1.2"
+nextcloud_version: "27.1.3"
 nextcloud_domain: ""
 nextcloud_php_user: "{{ php_fpm_pool_user | default('www-data') }}"
 nextcloud_php_version: "{{ php_default_version_debian | default('8.0') }}"
