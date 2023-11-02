@@ -19,7 +19,7 @@ jobs:
         run: pip3 install ansible-base
       - name: Import role on galaxy
         shell: bash
-        run: ansible-galaxy role import --token ${{ secrets.GALAXY_API_KEY }} ${GITHUB_REPOSITORY/\// }
+        run: ansible-galaxy role import --token ${{ secrets.GALAXY_API_KEY }} --role-name=nextcloud ${GITHUB_REPOSITORY/\// }
   release:
     runs-on: ubuntu-20.04
     steps:
