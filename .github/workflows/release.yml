@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: 3.8
       - name: Install ansible
-        run: pip3 install ansible-base
+        run: pip3 install ansible
       - name: Import role on galaxy
         shell: bash
         run: ansible-galaxy role import --token ${{ secrets.GALAXY_API_KEY }} --role-name=nextcloud ${GITHUB_REPOSITORY/\// }
