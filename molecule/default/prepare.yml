@@ -103,6 +103,7 @@
     # MySQL
     mysql_root_password: notsecurepassword
     mysql_bind_address: 127.0.0.1
+    mysql_replication_master:
     mysql_packages:
       - mariadb-client
       - mariadb-server

@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - name: set up Python 3.8
-        uses: actions/setup-python@v1
+      - name: set up Python 3.12
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.8
+          python-version: 3.12
       - name: Install ansible
         run: pip3 install ansible
       - name: Import role on galaxy
