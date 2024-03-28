@@ -58,8 +58,8 @@ All nextcloud files will be owned by this user. Usually you need to set this val
 Default: `"{{ php_fpm_pool_user | default('www-data') }}"`
 
 ### `nextcloud_php_version`
-Major version of PHP to use. Could be one of `7.4` or `8.0`.
-Default: `"{{ php_default_version_debian | default('8.0') }}"`
+Major version of PHP to use.
+Default: `"{{ php_default_version_debian | default('8.2') }}"`
 
 ### `nextcloud_php_bin_path`
 Path to PHP binary.
@@ -330,10 +330,10 @@ nginx_vhosts:
       }
 
 # PHP
-php_default_version_debian: "8.0"
+php_default_version_debian: "8.2"
 php_packages:
-  - php8.0-cli
-  - php8.0-fpm
+  - php8.2-cli
+  - php8.2-fpm
 php_install_recommends: false
 php_enable_webserver: false
 php_enable_php_fpm: true
