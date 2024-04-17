@@ -5,7 +5,7 @@ driver:
   name: podman
 platforms:
   - name: instance
-    image: "docker.io/nierdz/debian${DEBIAN_VERSION:-11}-molecule:latest"
+    image: "docker.io/nierdz/debian${DEBIAN_VERSION:-12}-molecule:latest"
     command: "/lib/systemd/systemd"
     privileged: true
     pre_build_image: true

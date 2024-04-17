@@ -8,8 +8,8 @@ galaxy_info:
   platforms:
   - name: Debian
     versions:
-      - buster
       - bullseye
+      - bookworm
   galaxy_tags:
     - nextcloud
     - owncloud
