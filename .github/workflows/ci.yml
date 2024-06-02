@@ -22,7 +22,7 @@ jobs:
   molecule:
     strategy:
       matrix:
-        debian_version: [10, 11]
+        debian_version: [11, 12]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
