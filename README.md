@@ -47,7 +47,7 @@ In production, you will also need a TLS certificate, which can be obtained using
 
 ### `nextcloud_version`
 Version of nextcloud to install.
-Default: `"29.0.1"`
+Default: `"29.0.7"`
 
 ### `nextcloud_domain`
 Domain name to use.
