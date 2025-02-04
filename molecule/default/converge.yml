@@ -1,8 +1,11 @@
 ---
 - name: Converge
   hosts: all
-  roles:
-    - role: ansible-role-nextcloud
+  tasks:
+    - name: Testing nierdz.nextcloud
+      ansible.builtin.include_role:
+        name: nierdz.nextcloud
+        tasks_from: main.yml
   vars:
     nextcloud_domain: "nextcloud.local"
     nextcloud_admin_user: "admin"
