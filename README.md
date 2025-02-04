@@ -1,7 +1,4 @@
-[![CI Status](https://github.com/nierdz/ansible-role-nextcloud/workflows/CI/badge.svg?branch=master)](https://github.com/nierdz/ansible-role-nextcloud/actions/workflows/ci.yml)
-[![Ansible Role](https://img.shields.io/ansible/role/53258)](https://galaxy.ansible.com/nierdz/nextcloud)
-[![Ansible Quality Score](https://img.shields.io/ansible/quality/53258)](https://galaxy.ansible.com/nierdz/nextcloud)
-[![Ansible Role](https://img.shields.io/ansible/role/d/53258)](https://galaxy.ansible.com/nierdz/nextcloud)
+[![CI](https://github.com/nierdz/ansible-role-nextcloud/actions/workflows/ci.yml/badge.svg)](https://github.com/nierdz/ansible-role-nextcloud/actions/workflows/ci.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # Nextcloud
