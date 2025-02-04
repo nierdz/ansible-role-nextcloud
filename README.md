@@ -264,10 +264,6 @@ nginx_vhosts:
 
       ssl_certificate /root/.acme.sh/{{ nextcloud_domain }}/fullchain.cer;
       ssl_certificate_key /root/.acme.sh/{{ nextcloud_domain }}/{{ nextcloud_domain }}.key;
-      include /etc/nginx/generic.conf;
-      include /etc/nginx/gzip.conf;
-      include /etc/nginx/security.conf;
-      include /etc/nginx/ssl.conf;
 
       location = /.well-known/carddav {
         return 301 $scheme://$host/remote.php/dav;
