@@ -4,4 +4,4 @@ molecule==25.2.0
 molecule-podman==2.0.3
 pre-commit==4.1.0
 pytest-testinfra==10.1.1
-yamllint==1.35.1
+yamllint==1.36.0
